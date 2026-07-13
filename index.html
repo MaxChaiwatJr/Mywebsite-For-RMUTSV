@@ -8,152 +8,222 @@
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
     
     <style>
-        /* จัดรูปแบบโครงสร้างพื้นฐาน */
         body {
             font-family: 'Prompt', sans-serif;
-            background-color: #f0f2f5; /* สีพื้นหลัง */
+            background-color: #f0f2f5;
             color: #333;
             margin: 0;
             padding: 20px;
         }
         
-        /* กล่องเนื้อหาหลัก */
         .container {
             max-width: 800px;
             margin: 0 auto;
             background: #ffffff;
-            padding: 40px 30px;
+            padding: 30px;
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
 
-        /* หัวข้อหน้าเว็บ */
         h1 {
             text-align: center;
-            color: #1a73e8; /* สีน้ำเงิน */
+            color: #2c3e50;
             margin-top: 0;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             font-weight: 600;
         }
 
-        /* กล่องสำหรับแต่ละรายวิชา */
-        .subject-group {
-            margin-bottom: 40px;
-        }
-
-        /* ชื่อวิชา */
-        .subject-title {
-            font-size: 1.4em;
-            color: #2c3e50;
-            border-bottom: 3px solid #1a73e8;
-            padding-bottom: 10px;
+        /* -----------------------------------
+           การตกแต่งสำหรับ "วันเสาร์" (สีม่วง)
+        ----------------------------------- */
+        .day-header.saturday {
+            background-color: #8e44ad; /* สีม่วง */
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 1.3em;
             margin-bottom: 20px;
-            font-weight: 500;
+            margin-top: 30px;
+        }
+        
+        .sat-group {
+            border-left: 4px solid #8e44ad; /* เส้นสีม่วง */
+            padding-left: 15px;
+            margin-left: 10px;
+            margin-bottom: 25px;
         }
 
-        /* กล่องของแต่ละคลิป */
+        .btn-sat {
+            background-color: #8e44ad;
+            color: white;
+        }
+        .btn-sat:hover { background-color: #732d91; }
+
+        /* -----------------------------------
+           การตกแต่งสำหรับ "วันอาทิตย์" (สีแดง)
+        ----------------------------------- */
+        .day-header.sunday {
+            background-color: #e74c3c; /* สีแดง */
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            margin-top: 40px;
+        }
+
+        .sun-group {
+            border-left: 4px solid #e74c3c; /* เส้นสีแดง */
+            padding-left: 15px;
+            margin-left: 10px;
+            margin-bottom: 25px;
+        }
+
+        .btn-sun {
+            background-color: #e74c3c;
+            color: white;
+        }
+        .btn-sun:hover { background-color: #c0392b; }
+
+        /* -----------------------------------
+           สไตล์ของรายวิชาและกล่องวิดีโอ 
+        ----------------------------------- */
+        .subject-title {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 12px;
+        }
+
         .video-card {
             display: flex;
             align-items: center;
             justify-content: space-between;
             background: #f8f9fa;
             border: 1px solid #e9ecef;
-            padding: 20px;
+            padding: 15px 20px;
             border-radius: 8px;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             transition: transform 0.2s, box-shadow 0.2s;
         }
 
-        /* เอฟเฟกต์ตอนเอาเมาส์ชี้กล่อง */
         .video-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.08);
-            border-color: #d1d5db;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
         }
 
-        /* ข้อมูลคลิป */
-        .video-info {
-            display: flex;
-            flex-direction: column;
-        }
+        .video-info { display: flex; flex-direction: column; }
+        .video-name { font-size: 1em; font-weight: 500; color: #34495e; }
+        .video-date { font-size: 0.85em; color: #7f8c8d; margin-top: 3px; }
 
-        .video-name {
-            font-size: 1.1em;
-            font-weight: 500;
-            color: #34495e;
-        }
-
-        .video-date {
-            font-size: 0.9em;
-            color: #7f8c8d;
-            margin-top: 5px;
-        }
-
-        /* ปุ่มกดดูวิดีโอ */
         .watch-btn {
-            background-color: #ff0000; /* สีแดงแบบ YouTube */
-            color: #ffffff;
             text-decoration: none;
-            padding: 10px 24px;
+            padding: 8px 20px;
             border-radius: 50px;
             font-weight: 500;
-            transition: background-color 0.3s;
+            font-size: 0.9em;
+            transition: 0.3s;
             display: inline-flex;
             align-items: center;
             gap: 8px;
         }
 
-        .watch-btn:hover {
-            background-color: #cc0000;
-        }
-
-        /* ทำให้เว็บรองรับมือถือ */
         @media (max-width: 600px) {
-            .video-card {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 15px;
-            }
-            .watch-btn {
-                width: 100%;
-                justify-content: center;
-                box-sizing: border-box;
-            }
+            .video-card { flex-direction: column; align-items: flex-start; gap: 12px; }
+            .watch-btn { width: 100%; justify-content: center; box-sizing: border-box; }
+            .sat-group, .sun-group { margin-left: 0; border-left: none; padding-left: 0; }
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>📚 คลังวิดีโอประกอบการเรียน</h1>
+        <h1>📚 ตารางวิดีโอเรียน (เสาร์-อาทิตย์)</h1>
 
-        <div class="subject-group">
-            <div class="subject-title">📌 วิชา Signal and System</div>
-            
+        <!-- ==========================================
+             วันเสาร์ (สีม่วง)
+        =========================================== -->
+        <div class="day-header saturday">🗓️ วันเสาร์</div>
+
+        <!-- วิชาที่ 1 (วันเสาร์) -->
+        <div class="sat-group">
+            <div class="subject-title">📌 1. วิชา Signal and System</div>
             <div class="video-card">
                 <div class="video-info">
-                    <span class="video-name">คลิปที่ 1 (บรรยายเนื้อหา)</span>
-                    <span class="video-date">บันทึกเมื่อวันที่: 4/7/69</span>
+                    <span class="video-name">คลิปที่ 1</span>
+                    <span class="video-date">รออัปเดตลิงก์</span>
                 </div>
-                <a href="https://youtu.be/0Nx5zzJgkes" target="_blank" class="watch-btn">
-                    ▶ ดูวิดีโอ
-                </a>
+                <a href="#" target="_blank" class="watch-btn btn-sat">▶ ดูวิดีโอ</a>
             </div>
-            </div>
+        </div>
 
-        <div class="subject-group">
-            <div class="subject-title">📌 วิชา Power Trans</div>
-            
+        <!-- วิชาที่ 2 (วันเสาร์) -->
+        <div class="sat-group">
+            <div class="subject-title">📌 2. วิชา Lab control</div>
             <div class="video-card">
                 <div class="video-info">
-                    <span class="video-name">คลิปที่ 1 (บรรยายเนื้อหา)</span>
-                    <span class="video-date">บันทึกเมื่อวันที่: 5/7/69</span>
+                    <span class="video-name">คลิปที่ 1</span>
+                    <span class="video-date">รออัปเดตลิงก์</span>
                 </div>
-                <a href="https://youtu.be/l8nAZFygJiw" target="_blank" class="watch-btn">
-                    ▶ ดูวิดีโอ
-                </a>
+                <a href="#" target="_blank" class="watch-btn btn-sat">▶ ดูวิดีโอ</a>
+            </div>
+        </div>
+
+
+        <!-- ==========================================
+             วันอาทิตย์ (สีแดง)
+        =========================================== -->
+        <div class="day-header sunday">🗓️ วันอาทิตย์</div>
+
+        <!-- วิชาที่ 1 (วันอาทิตย์) -->
+        <div class="sun-group">
+            <div class="subject-title">📌 1. วิชา Lab Power Trans</div>
+            <div class="video-card">
+                <div class="video-info">
+                    <span class="video-name">คลิปที่ 1</span>
+                    <span class="video-date">รออัปเดตลิงก์</span>
+                </div>
+                <a href="#" target="_blank" class="watch-btn btn-sun">▶ ดูวิดีโอ</a>
+            </div>
+        </div>
+
+        <!-- วิชาที่ 2 (วันอาทิตย์) -->
+        <div class="sun-group">
+            <div class="subject-title">📌 2. วิชา Power Trans</div>
+            <div class="video-card">
+                <div class="video-info">
+                    <span class="video-name">คลิปที่ 1</span>
+                    <span class="video-date">รออัปเดตลิงก์</span>
+                </div>
+                <a href="#" target="_blank" class="watch-btn btn-sun">▶ ดูวิดีโอ</a>
+            </div>
+        </div>
+
+        <!-- วิชาที่ 3 (วันอาทิตย์) -->
+        <div class="sun-group">
+            <div class="subject-title">📌 3. วิชา คุณภาพกำลังไฟฟ้า</div>
+            <div class="video-card">
+                <div class="video-info">
+                    <span class="video-name">คลิปที่ 1</span>
+                    <span class="video-date">รออัปเดตลิงก์</span>
+                </div>
+                <a href="#" target="_blank" class="watch-btn btn-sun">▶ ดูวิดีโอ</a>
+            </div>
+        </div>
+
+        <!-- วิชาที่ 4 (วันอาทิตย์) -->
+        <div class="sun-group">
+            <div class="subject-title">📌 4. วิชา PLC</div>
+            <div class="video-card">
+                <div class="video-info">
+                    <span class="video-name">คลิปที่ 1</span>
+                    <span class="video-date">รออัปเดตลิงก์</span>
+                </div>
+                <a href="#" target="_blank" class="watch-btn btn-sun">▶ ดูวิดีโอ</a>
             </div>
         </div>
 
     </div>
 
+</body>
+</html>
