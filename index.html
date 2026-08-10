@@ -203,12 +203,13 @@
         }
     </style>
 </head>
-<body>
+<!-- ใส่ class="dark-mode" ไว้เป็นค่าเริ่มต้น -->
+<body class="dark-mode">
 
     <div class="container">
-        <!-- ปุ่มสลับโหมด -->
+        <!-- ปุ่มสลับโหมด เริ่มต้นแสดงเป็นโหมดสว่างเพราะหน้าเว็บเป็น Dark Mode แล้ว -->
         <button class="theme-toggle-btn" id="themeToggle">
-            <span id="themeIcon">🌙</span> โหมดกลางคืน
+            <span id="themeIcon">☀️</span> โหมดสว่าง
         </button>
 
         <h1>📚 ตารางวิดีโอเรียน</h1>
@@ -316,8 +317,8 @@
                     <span class="video-name">คลิปที่ 4</span>
                     <span class="video-date">9/8/69</span>
                 </div>
-                <a href="https://youtu.be/Hg60yol8x7M" target="_blank" class="watch-btn btn-sun">▶ ดูวิดีโอ</a>
-            </div> 
+                <a href="https://youtu.be/dqi0EA2lYZc" target="_blank" class="watch-btn btn-sun">▶ ดูวิดีโอ</a>
+            </div>
         </div>
         
         <!-- วิชาที่ 2 (วันอาทิตย์) -->
@@ -435,9 +436,9 @@
             <div class="video-card pending">
                 <div class="video-info">
                     <span class="video-name">คลิปที่ 5</span>
-                    <span class="video-date">10/8/69</span>
+                    <span class="video-date">รออัปเดตลิงก์</span>
                 </div>
-                <a class="watch-btn disabled">https://youtu.be/Q1Yz8xWAKy0</a>
+                <a class="watch-btn disabled">รอก่อนนะ</a>
             </div>
         </div>
 
@@ -446,15 +447,13 @@
     <!-- Script สำหรับระบบ Dark Mode -->
     <script>
         const themeToggle = document.getElementById('themeToggle');
-        const themeIcon = document.getElementById('themeIcon');
         const body = document.body;
 
-        // เช็คว่าเคยเปิด Dark mode ไว้ไหม (ดึงค่าจาก Local Storage)
+        // เช็คว่าเคย "ปิด" Dark mode ไว้ไหม (ถ้าไม่เคย จะเป็น dark อัตโนมัติ)
         const currentTheme = localStorage.getItem('theme');
-        if (currentTheme === 'dark') {
-            body.classList.add('dark-mode');
-            themeIcon.textContent = '☀️';
-            themeToggle.innerHTML = '<span id="themeIcon">☀️</span> โหมดสว่าง';
+        if (currentTheme === 'light') {
+            body.classList.remove('dark-mode');
+            themeToggle.innerHTML = '<span id="themeIcon">🌙</span> โหมดกลางคืน';
         }
 
         // เมื่อกดปุ่มสลับโหมด
