@@ -8,27 +8,86 @@
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
     
     <style>
+        /* -----------------------------------
+           ตัวแปรสีเริ่มต้น (โหมดสว่าง)
+        ----------------------------------- */
+        :root {
+            --bg-color: #f0f2f5;
+            --container-bg: #ffffff;
+            --text-main: #333333;
+            --text-heading: #2c3e50;
+            --text-muted: #7f8c8d;
+            --card-bg: #f8f9fa;
+            --card-border: #e9ecef;
+            --card-hover-shadow: rgba(0,0,0,0.08);
+            --disabled-bg: #bdc3c7;
+            --disabled-text: #ffffff;
+        }
+
+        /* -----------------------------------
+           ตัวแปรสีเมื่อเปิด Dark Mode
+        ----------------------------------- */
+        body.dark-mode {
+            --bg-color: #18191a;
+            --container-bg: #242526;
+            --text-main: #e4e6eb;
+            --text-heading: #e4e6eb;
+            --text-muted: #b0b3b8;
+            --card-bg: #3a3b3c;
+            --card-border: #4e4f50;
+            --card-hover-shadow: rgba(0,0,0,0.4);
+            --disabled-bg: #4a4b4c;
+            --disabled-text: #888888;
+        }
+
         body {
             font-family: 'Prompt', sans-serif;
-            background-color: #f0f2f5;
-            color: #333;
+            background-color: var(--bg-color);
+            color: var(--text-main);
             margin: 0;
             padding: 20px;
+            transition: background-color 0.3s, color 0.3s;
         }
         
         .container {
             max-width: 800px;
             margin: 0 auto;
-            background: #ffffff;
+            background: var(--container-bg);
             padding: 30px;
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: background-color 0.3s;
+            position: relative;
+        }
+
+        /* ปุ่มสลับโหมด */
+        .theme-toggle-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--card-bg);
+            color: var(--text-main);
+            border: 1px solid var(--card-border);
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-family: 'Prompt', sans-serif;
+            font-weight: 500;
+            font-size: 0.9em;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .theme-toggle-btn:hover {
+            filter: brightness(0.9);
         }
 
         h1 {
             text-align: center;
-            color: #2c3e50;
-            margin-top: 0;
+            color: var(--text-heading);
+            margin-top: 10px;
             margin-bottom: 30px;
             font-weight: 600;
         }
@@ -37,7 +96,7 @@
            การตกแต่งสำหรับ "วันเสาร์" (สีม่วง)
         ----------------------------------- */
         .day-header.saturday {
-            background-color: #8e44ad; /* สีม่วง */
+            background-color: #8e44ad;
             color: white;
             padding: 12px 20px;
             border-radius: 8px;
@@ -47,23 +106,20 @@
         }
         
         .sat-group {
-            border-left: 4px solid #8e44ad; /* เส้นสีม่วง */
+            border-left: 4px solid #8e44ad;
             padding-left: 15px;
             margin-left: 10px;
             margin-bottom: 25px;
         }
 
-        .btn-sat {
-            background-color: #8e44ad;
-            color: white;
-        }
+        .btn-sat { background-color: #8e44ad; color: white; border: none; }
         .btn-sat:hover { background-color: #732d91; }
 
         /* -----------------------------------
            การตกแต่งสำหรับ "วันอาทิตย์" (สีแดง)
         ----------------------------------- */
         .day-header.sunday {
-            background-color: #e74c3c; /* สีแดง */
+            background-color: #e74c3c;
             color: white;
             padding: 12px 20px;
             border-radius: 8px;
@@ -73,16 +129,13 @@
         }
 
         .sun-group {
-            border-left: 4px solid #e74c3c; /* เส้นสีแดง */
+            border-left: 4px solid #e74c3c;
             padding-left: 15px;
             margin-left: 10px;
             margin-bottom: 25px;
         }
 
-        .btn-sun {
-            background-color: #e74c3c;
-            color: white;
-        }
+        .btn-sun { background-color: #e74c3c; color: white; border: none; }
         .btn-sun:hover { background-color: #c0392b; }
 
         /* -----------------------------------
@@ -91,7 +144,7 @@
         .subject-title {
             font-size: 1.1em;
             font-weight: 600;
-            color: #2c3e50;
+            color: var(--text-heading);
             margin-bottom: 12px;
         }
 
@@ -99,28 +152,27 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: #f8f9fa;
-            border: 1px solid #e9ecef;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
             padding: 15px 20px;
             border-radius: 8px;
             margin-bottom: 12px;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: transform 0.2s, box-shadow 0.2s, background-color 0.3s;
         }
 
         .video-card:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 8px var(--card-hover-shadow);
         }
 
-        /* ตกแต่งกล่องที่ยังไม่มีลิงก์ ให้ดูจางลงนิดหน่อย */
+        /* ตกแต่งกล่องที่ยังไม่มีลิงก์ */
         .video-card.pending {
             opacity: 0.6;
-            background: #fdfdfd;
         }
 
         .video-info { display: flex; flex-direction: column; }
-        .video-name { font-size: 1em; font-weight: 500; color: #34495e; }
-        .video-date { font-size: 0.85em; color: #7f8c8d; margin-top: 3px; }
+        .video-name { font-size: 1em; font-weight: 500; color: var(--text-main); }
+        .video-date { font-size: 0.85em; color: var(--text-muted); margin-top: 3px; }
 
         .watch-btn {
             text-decoration: none;
@@ -134,10 +186,10 @@
             gap: 8px;
         }
 
-        /* ปุ่มที่ยังไม่มีลิงก์จะกดไม่ได้และเป็นสีเทา */
+        /* ปุ่มที่ยังไม่มีลิงก์จะกดไม่ได้ */
         .watch-btn.disabled {
-            background-color: #bdc3c7;
-            color: white;
+            background-color: var(--disabled-bg);
+            color: var(--disabled-text);
             cursor: not-allowed;
             pointer-events: none;
         }
@@ -146,13 +198,20 @@
             .video-card { flex-direction: column; align-items: flex-start; gap: 12px; }
             .watch-btn { width: 100%; justify-content: center; box-sizing: border-box; }
             .sat-group, .sun-group { margin-left: 0; border-left: none; padding-left: 0; }
+            .theme-toggle-btn { position: relative; top: 0; right: 0; margin-bottom: 20px; width: 100%; justify-content: center; }
+            h1 { margin-top: 0; }
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>📚 ตารางวิดีโอเรียน (เสาร์-อาทิตย์)</h1>
+        <!-- ปุ่มสลับโหมด -->
+        <button class="theme-toggle-btn" id="themeToggle">
+            <span id="themeIcon">🌙</span> โหมดกลางคืน
+        </button>
+
+        <h1>📚 ตารางวิดีโอเรียน</h1>
 
         <!-- ==========================================
              วันเสาร์ (สีม่วง)
@@ -257,7 +316,7 @@
                     <span class="video-name">คลิปที่ 4</span>
                     <span class="video-date">9/8/69</span>
                 </div>
-                <a href="https://youtu.be/Hg60yol8x7M" target="_blank" class="watch-btn btn-sun">▶ ดูวิดีโอ</a>
+                <a href="https://youtu.be/dqi0EA2lYZc" target="_blank" class="watch-btn btn-sun">▶ ดูวิดีโอ</a>
             </div>
         </div>
         
@@ -359,7 +418,7 @@
             <div class="video-card">
                 <div class="video-info">
                     <span class="video-name">คลิปที่ 3</span>
-                    <span class="video-date">26/7/69</span>
+                    <span class="video-date">19/7/69</span>
                 </div>
                 <a href="https://youtu.be/U2LvTLQaCuo" target="_blank" class="watch-btn btn-sun">▶ ดูวิดีโอ</a>
             </div>
@@ -367,7 +426,7 @@
             <div class="video-card">
                 <div class="video-info">
                     <span class="video-name">คลิปที่ 4</span>
-                    <span class="video-date">2/8/69 (ไฟล์เสียนิดนึง)</span>
+                    <span class="video-date">2/8/69</span>
                 </div>
                 <a href="https://youtu.be/J9qFSg-xvJw" target="_blank" class="watch-btn btn-sun">▶ ดูวิดีโอ</a>
             </div>
@@ -378,12 +437,40 @@
                     <span class="video-name">คลิปที่ 5</span>
                     <span class="video-date">รออัปเดตลิงก์</span>
                 </div>
-                
-                <a href="https://youtu.be/Q1Yz8xWAKy0" target="_blank" class="watch-btn btn-sun">▶ ดูวิดีโอ</a>
+                <a class="watch-btn disabled">รอก่อนนะ</a>
             </div>
         </div>
 
     </div>
+
+    <!-- Script สำหรับระบบ Dark Mode -->
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const body = document.body;
+
+        // เช็คว่าเคยเปิด Dark mode ไว้ไหม (ดึงค่าจาก Local Storage)
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme === 'dark') {
+            body.classList.add('dark-mode');
+            themeIcon.textContent = '☀️';
+            themeToggle.innerHTML = '<span id="themeIcon">☀️</span> โหมดสว่าง';
+        }
+
+        // เมื่อกดปุ่มสลับโหมด
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            
+            // เช็คสถานะหลังกด ว่าเป็นโหมดมืดหรือสว่าง แล้วอัปเดตข้อความ/บันทึกค่า
+            if (body.classList.contains('dark-mode')) {
+                themeToggle.innerHTML = '<span id="themeIcon">☀️</span> โหมดสว่าง';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                themeToggle.innerHTML = '<span id="themeIcon">🌙</span> โหมดกลางคืน';
+                localStorage.setItem('theme', 'light');
+            }
+        });
+    </script>
 
 </body>
 </html>
